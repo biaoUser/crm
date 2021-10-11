@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.biao.crm.workbench.dao.ClueRemarkMapper">
+	<delete id="deleteByIds">
+        delete from tbl_clue_remark where clueId in
+        <foreach collection="array" open="(" close=")" separator="," item="ids">
+            #{ids}
+        </foreach>
+    </delete>
+  	<select id="getListByClueId" resultType="clueRemark">
+         select * from tbl_clue_remark where clueId=#{clueId}
+    </select>
+    <delete id="delete" parameterType="clueRemark">
+        delete from tbl_clue_remark where id=#{id}
+    </delete>
+
+    <select id="getCountByIds" resultType="int">
+        select count(*) from tbl_clue_remark where clueId in
+        <foreach collection="array" open="(" close=")" separator="," item="ids" >
+            #{ids}
+        </foreach>
+    </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

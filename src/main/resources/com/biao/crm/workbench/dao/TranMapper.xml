@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biao.crm.workbench.dao.TranMapper">
+    <select id="getCharts" resultType="map">
+            select COUNT(*) as value ,stage as name
+            from tbl_tran
+            GROUP BY stage
+    </select>
+    <select id="getTotal" resultType="int">
+        select count(*) from tbl_tran
+    </select>
+
+    <update id="changStage" parameterType="tran">
+       update tbl_tran set stage=#{stage},editBy=#{editBy},editTime=#{editTime}
+          where id=#{id}
+    </update>
+    <select id="detail" resultType="tran">
+         select
+        tran.id,
+        user.name as owner,
+        tran.money,
+        tran.name,
+        tran.expectedDate,
+        cus.name as customerId,
+        tran.stage,
+        tran.type,
+        tran.source,
+        act.name as activityId,
+        con.fullname as contactsId,
+        tran.createBy,
+        tran.createTime,
+        tran.editBy,
+        tran.editTime,
+        tran.description,
+        tran.contactSummary,
+        tran.nextContactTime
+        from tbl_tran tran
+        join tbl_user user
+        on tran.owner=user.id
+        join tbl_customer cus
+        on tran.customerId=cus.id
+        left join tbl_activity act
+        on tran.activityId=act.id
+        left join tbl_contacts con
+        on tran.contactsId=con.id
+
+        where tran.id=#{id}
+
+
+    </select>
+
+
+    <select id="getTotalByCondition" resultType="Integer">
+        select count(*)
+        from tbl_tran as t
+        join tbl_user as u on u.id=t.owner
+        join tbl_customer as c on c.id=t.customerId
+        join tbl_contacts as con on con.id=t.contactsId
+
+        <where>
+
+            <if test="name!=null and name!=''">
+                t.`name` like '%' #{name} '%'
+            </if>
+
+            <if test="type!=null and type!=''">
+                and t.`type` like '%' #{type} '%'
+            </if>
+
+            <if test="source!=null and source!=''">
+                and t.`source` like '%' #{source} '%'
+            </if>
+
+            <if test="stage!=null and stage!=''">
+                and t.`stage` like '%' #{stage} '%'
+            </if>
+
+            <if test="owner!=null and owner!=''">
+                and u.name like '%' #{owner} '%'
+            </if>
+
+            <if test="customer!=null and customer!=''">
+                and c.`name` like '%' #{owner} '%'
+            </if>
+
+            <if test="contacts!=null and contacts!=''">
+                and con.fullname like '%' #{contacts} '%'
+            </if>
+
+        </where>
+
+
+    </select>
+
+    <select id="getTranListByCondition" resultType="tran">
+
+        select
+        u.name as owner,
+        c.`name` as customerId,
+        con.fullname as contactsId,
+        t.`name`,
+        t.type,
+        t.source,
+        t.stage,
+        t.id
+        from tbl_tran as t
+        join tbl_user as u on u.id=t.owner
+        join tbl_customer as c on c.id=t.customerId
+        join tbl_contacts as con on con.id=t.contactsId
+
+        <where>
+
+            <if test="name!=null and name!=''">
+                t.`name` like '%' #{name} '%'
+            </if>
+
+            <if test="type!=null and type!=''">
+                and t.`type` like '%' #{type} '%'
+            </if>
+
+            <if test="source!=null and source!=''">
+                and t.`source` like '%' #{source} '%'
+            </if>
+
+            <if test="stage!=null and stage!=''">
+                and t.`stage` like '%' #{stage} '%'
+            </if>
+
+            <if test="owner!=null and owner!=''">
+                and u.name like '%' #{owner} '%'
+            </if>
+
+            <if test="customer!=null and customer!=''">
+                and c.`name` like '%' #{owner} '%'
+            </if>
+
+            <if test="contacts!=null and contacts!=''">
+                and con.fullname like '%' #{contacts} '%'
+            </if>
+
+        </where>
+        order by t.createTime desc
+
+        limit #{skipCount} ,#{PageSize}
+
+    </select>
+
+
+    <insert id="save" parameterType="tran">
+
+        insert into tbl_tran(
+
+            id,
+            owner,
+            money,
+            name,
+            expectedDate,
+            customerId,
+            stage,
+            type,
+            source,
+            activityId,
+            contactsId,
+            createBy,
+            createTime,
+            description,
+            contactSummary,
+            nextContactTime
+
+
+        )
+
+        values(
+
+            #{id},
+            #{owner},
+            #{money},
+            #{name},
+            #{expectedDate},
+            #{customerId},
+            #{stage},
+            #{type},
+            #{source},
+            #{activityId},
+            #{contactsId},
+            #{createBy},
+            #{createTime},
+            #{description},
+            #{contactSummary},
+            #{nextContactTime}
+
+        )
+
+
+    </insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

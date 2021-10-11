@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+   <typeAliases>
+       <package name="com.biao.crm.pojo"/>
+       <package name="com.biao.crm.workbench.pojo"/>
+   </typeAliases>
+    <mappers>
+        <mapper resource="com/biao/crm/dao/UserMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ActivityMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ActivityRemarkMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ClueActivityRelationMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ClueMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ClueRemarkMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ContactsActivityRelationMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ContactsMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/ContactsRemarkMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/CustomerMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/CustomerRemarkMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/TranHistoryMapper.xml"/>
+        <mapper resource="com/biao/crm/workbench/dao/TranMapper.xml"/>
+    </mappers>
+</configuration>
